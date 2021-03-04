@@ -34,7 +34,6 @@
           });
         });
       }
-      console.log(blocks);
     } finally {
       const finishMs = performance.now();
       console.log("statement_ms", finishMs - startMs);
@@ -84,6 +83,29 @@
     }
   }
 
+  async function run() {
+    if (!source || !blocks) return;
+    for (const block of blocks) {
+      if (block.class != "sample-tests") continue;
+      for (const test of block.tests) {
+        const response = await fetch("https://emkc.org/api/v1/piston/execute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            language: "python",
+            source: editor.getValue(),
+            stdin: test.input,
+          }),
+        });
+        const json = await response.json();
+        test.stdout = json.stdout;
+        test.stderr = json.stderr;
+        if (test.stdout == test.output) test.stdout = "the same :) # " + new Date().toJSON();
+        blocks = blocks;
+      }
+    }
+  }
+
   function diffBusy(diff) {
     busy += diff;
     header.classList.remove("busy");
@@ -110,7 +132,7 @@
   <div class="gap" />
   <button on:click={cheat}>Cheat</button>
   <div class="gap" />
-  <button>Run</button>
+  <button on:click={run}>Run</button>
   <div class="gap" />
 </div>
 
@@ -119,20 +141,23 @@
     {#each blocks as block}
       {#if block.class == "sample-tests"}
         {#each block.tests as test}
+          <hr />
           <div class="test">
-            <div>Input:</div>
+            <div>input:</div>
             <pre>{test.input}</pre>
             <div class="gap" />
-
-            <div>Expected Output:</div>
+            <div>output:</div>
             <pre>{test.output}</pre>
             <div class="gap" />
-
-            <div>Your Output:</div>
-            <pre>{test.output}</pre>
+            <div>stdout:</div>
+            <pre>{test.stdout}</pre>
+            <div class="gap" />
+            <div>stderr:</div>
+            <pre>{test.stderr}</pre>
             <div class="gap" />
           </div>
         {/each}
+        <hr />
       {:else}
         {@html block.escapedHtml}
       {/if}

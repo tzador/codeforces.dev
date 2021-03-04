@@ -5,7 +5,7 @@ body {
   --cf-yellow: yellow;
   --cf-red: red;
   font-family: "Roboto", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
 }
 
@@ -23,7 +23,7 @@ button {
   border-radius: 0.25em;
   background: white;
   padding: 0.25em 0.5em;
-  font-size: 16px;
+  font-size: 14px;
 }
 button:hover {
   background-color: var(--cf-yellow);
@@ -59,7 +59,7 @@ pre {
 .CodeMirror {
   height: 100% !important;
   font-family: "Roboto Mono", monospace !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 
 select {
@@ -73,7 +73,7 @@ select {
     linear-gradient(0deg, var(--cf-blue) 50%, transparent 50%),
     linear-gradient(0deg, var(--cf-blue) 50%, transparent 50%);
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-  background-size: 16px 2px, 16px 2px, 2px 16px, 2px 16px;
+  background-size: 14px 2px, 14px 2px, 2px 14px, 2px 14px;
   background-position: 0px 0px, 100% 100%, 0px 100%, 100% 0px;
   animation: busy-dance 60s infinite linear;
 }
