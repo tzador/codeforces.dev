@@ -9,7 +9,24 @@
 
   let textarea;
   let editor;
-  let theme;
+  let theme = localStorage.getItem("theme") || "pastel-on-dark";
+  let mode = localStorage.getItem("mode") || "python";
+  let source = localStorage.getItem(`source/${contestId}/${index}/${mode}`);
+
+  function changeTheme() {
+    localStorage.setItem("theme", theme);
+    editor.setOption("theme", theme);
+  }
+
+  function changeMode() {
+    localStorage.setItem("mode", mode);
+    editor.setOption("mode", mode == "c++" ? "text/x-c++src" : mode);
+  }
+
+  function changeSource() {
+    localStorage.setItem(`source/${contestId}/${index}/${mode}`, source);
+    editor.setValue(source);
+  }
 
   onMount(() => {
     editor = CodeMirror.fromTextArea(textarea, {
@@ -17,14 +34,17 @@
       styleActiveLine: true,
       matchBrackets: true,
     });
-    editor.setOption("theme", "pastel-on-dark");
-    theme = localStorage.getItem("theme") || "pastel-on-dark";
     changeTheme();
+    changeMode();
   });
 
-  function changeTheme() {
-    localStorage.setItem("theme", theme);
-    editor.setOption("theme", theme);
+  async function cheat() {
+    const response = await fetch(`/api/cheat/${contestId}/${index}`);
+    const json = await response.json();
+    mode = json.mode;
+    source = json.source;
+    changeMode();
+    changeSource();
   }
 </script>
 
@@ -39,19 +59,21 @@
     {/each}
   </select>
   <div class="gap" />
-  <select>
+  <!-- svelte-ignore a11y-no-onchange -->
+  <select bind:value={mode} on:change={changeMode}>
     <option value="c++">c++</option>
-    <option value="java">java</option>
     <option value="python">python</option>
   </select>
   <div class="gap" />
-  <button>Run All</button>
+  <button on:click={cheat}>Cheat</button>
+  <div class="gap" />
+  <button>Run</button>
   <div class="gap" />
 </div>
 <div class="left" />
 
 <div class="right">
-  <textarea bind:this={textarea} />
+  <textarea bind:this={textarea} bind:value={source} on:change={changeSource} on:keyup={changeSource} />
 </div>
 
 <style>
