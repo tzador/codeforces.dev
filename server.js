@@ -19,18 +19,28 @@ app.get("/api/problemset/", async (req, res) => {
 app.get("/api/problemset/problem/:contestId/:index", async (req, res) => {
   const response = await fetch(`https://codeforces.com/problemset/problem/${req.params.contestId}/${req.params.index}`);
   const $ = cheerio.load(await response.text());
-  res.type("text/plain");
+  const blocks = [];
   for (const section of $(".problem-statement > *")) {
-    res.write(html.prettyPrint(cheerio.html(section), { indent_size: 4 }));
-    res.write(JSON.stringify(section.class));
-    res.write("\n\n\n");
+    const clazz = $(section).attr("class") || "undefined";
+    const html = cheerio.html(section);
+    const block = { class: clazz, html };
+    blocks.push(block);
+    if (clazz == "sample-tests") {
+      block.tests = [];
+      const pres = $(".problem-statement .sample-tests pre");
+      const texts = [];
+      for (const pre of pres) {
+        texts.push($(pre).text().trim());
+      }
+      for (let i = 0; i < texts.length; i += 2) {
+        block.tests.push({
+          input: texts[i],
+          output: texts[i + 1],
+        });
+      }
+    }
   }
-  const pres = [];
-  for (const pre of $(".problem-statement .sample-tests pre")) {
-    pres.push($(pre).text());
-  }
-  res.write(JSON.stringify(pres));
-  res.end();
+  res.json(blocks);
 });
 
 app.get("/api/cheat/:contestId/:index", async (req, res) => {

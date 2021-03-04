@@ -5,7 +5,7 @@ body {
   --cf-yellow: yellow;
   --cf-red: red;
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -23,7 +23,7 @@ button {
   border-radius: 0.25em;
   background: white;
   padding: 0.25em 0.5em;
-  font-size: 14px;
+  font-size: 16px;
 }
 button:hover {
   background-color: var(--cf-yellow);
@@ -48,17 +48,40 @@ button:hover {
   align-items: center;
 }
 
-.mono {
+pre {
   font-family: "Roboto Mono", monospace;
+  background-color: rgba(0, 0, 0, 0.125);
+  box-sizing: border-box;
+  padding: 1em;
+  margin: 0;
 }
 
 .CodeMirror {
   height: 100% !important;
   font-family: "Roboto Mono", monospace !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 
 select {
   border: none;
   outline: none;
+}
+
+.busy {
+  background: linear-gradient(90deg, var(--cf-blue) 50%, transparent 50%),
+    linear-gradient(90deg, var(--cf-blue) 50%, transparent 50%),
+    linear-gradient(0deg, var(--cf-blue) 50%, transparent 50%),
+    linear-gradient(0deg, var(--cf-blue) 50%, transparent 50%);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 16px 2px, 16px 2px, 2px 16px, 2px 16px;
+  background-position: 0px 0px, 100% 100%, 0px 100%, 100% 0px;
+  animation: busy-dance 60s infinite linear;
+}
+@keyframes busy-dance {
+  0% {
+    background-position: 100% 0, 0 100%, 0 0, 100% 100%;
+  }
+  100% {
+    background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+  }
 }

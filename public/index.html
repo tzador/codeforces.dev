@@ -13,6 +13,12 @@
       integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw=="
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
+      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <script
@@ -30,19 +36,26 @@
       integrity="sha512-PeD3V/6m5bFv3qyIVKgDh+huybMHjvsLWuW7ZH5WZsS+hY0pZNU24si/Yja/2D4c/ff++c6k1S240dKwhJEJzw=="
       crossorigin="anonymous"
     ></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"
+      integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script> -->
     <script>
-      firebase.initializeApp({
-        apiKey: "AIzaSyDR6qVdDz_BO4kE9ow64p6Zn-voMO6D_OU",
-        authDomain: "codeforces-dev.firebaseapp.com",
-        projectId: "codeforces-dev",
-        storageBucket: "codeforces-dev.appspot.com",
-        messagingSenderId: "711972695277",
-        appId: "1:711972695277:web:9a229b5e2a35db545db0e4",
-        measurementId: "G-D37HND73KX",
-      });
-      window.analytics = firebase.analytics();
+      // firebase.initializeApp({
+      //   apiKey: "AIzaSyDR6qVdDz_BO4kE9ow64p6Zn-voMO6D_OU",
+      //   authDomain: "codeforces-dev.firebaseapp.com",
+      //   projectId: "codeforces-dev",
+      //   storageBucket: "codeforces-dev.appspot.com",
+      //   messagingSenderId: "711972695277",
+      //   appId: "1:711972695277:web:9a229b5e2a35db545db0e4",
+      //   measurementId: "G-D37HND73KX",
+      // });
+      // window.analytics = firebase.analytics();
     </script>
     <script src="/build/bundle.js"></script>
   </body>
