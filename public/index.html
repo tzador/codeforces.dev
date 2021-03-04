@@ -7,7 +7,49 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/global.css" />
     <link rel="stylesheet" href="/build/bundle.css" />
-    <script defer src="/build/bundle.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.css"
+      integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/theme/pastel-on-dark.min.css"
+      integrity="sha512-kcwXu8swgWHAdTrmVuUiuJK0+VtDCVXhOpznpnZHfx84G78aGLqbEtu5MYN08zV3XpP719SPTOzrcfirU1JnDA=="
+      crossorigin="anonymous"
+    />
   </head>
-  <body></body>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.js"
+      integrity="sha512-M1DpFDDFHNgGdgVsSkTP1sjfWC7mQFJM3obQo8gyKHbZmbmr95Kl9wPYa5T70BFQBi0+/TlcG6IZDLowJCbKBQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/python/python.min.js"
+      integrity="sha512-wWnd0mjQTkxcs4nTZyu9TqfeDbXghPYwndBrvzjmyAgNKX4rJ5xPirrescJZkVtrWHIb9//dMABkORz6FSJfYA=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/clike/clike.min.js"
+      integrity="sha512-PeD3V/6m5bFv3qyIVKgDh+huybMHjvsLWuW7ZH5WZsS+hY0pZNU24si/Yja/2D4c/ff++c6k1S240dKwhJEJzw=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+    <script>
+      firebase.initializeApp({
+        apiKey: "AIzaSyDR6qVdDz_BO4kE9ow64p6Zn-voMO6D_OU",
+        authDomain: "codeforces-dev.firebaseapp.com",
+        projectId: "codeforces-dev",
+        storageBucket: "codeforces-dev.appspot.com",
+        messagingSenderId: "711972695277",
+        appId: "1:711972695277:web:9a229b5e2a35db545db0e4",
+        measurementId: "G-D37HND73KX",
+      });
+      window.analytics = firebase.analytics();
+    </script>
+    <script src="/build/bundle.js"></script>
+  </body>
 </html>

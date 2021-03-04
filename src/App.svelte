@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
+  import { Router, Route } from "svelte-routing";
+  import List from "./List.svelte";
+  import Edit from "./Edit.svelte";
 </script>
 
-<main>hello</main>
+<Router>
+  <Route path="problemset/problem/:contestId/:index" component={Edit} />
+  <Route component={List} />
+</Router>
 
 <style>
-  main {
-    margin: auto;
-  }
 </style>
