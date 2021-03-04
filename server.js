@@ -12,8 +12,16 @@ app.get("/api/headers", (req, res) => {
 
 app.get("/api/problemset/", async (req, res) => {
   const response = await fetch("https://codeforces.com/api/problemset.problems");
-  const data = await response.json();
-  res.json(data);
+  const json = await response.json();
+  const solvedCount = {};
+  for (const stat of json.result.problemStatistics) {
+    solvedCount[`${stat.contestId}/${stat.index}`] = stat.solvedCount;
+  }
+  for (const problem of json.result.problems) {
+    delete problem.type;
+    problem.solvedCount = solvedCount[`${problem.contestId}/${problem.index}`];
+  }
+  res.json(json.result.problems);
 });
 
 app.get("/api/problemset/problem/:contestId/:index", async (req, res) => {

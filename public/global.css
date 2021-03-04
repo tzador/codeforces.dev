@@ -48,6 +48,11 @@ button:hover {
   align-items: center;
 }
 
+.mono {
+  font-family: "Roboto Mono", monospace;
+  font-size: 14px;
+}
+
 pre {
   font-family: "Roboto Mono", monospace;
   background-color: rgba(0, 0, 0, 0.125);
@@ -68,10 +73,9 @@ select {
 }
 
 .busy {
-  background: linear-gradient(90deg, var(--cf-blue) 50%, transparent 50%),
-    linear-gradient(90deg, var(--cf-blue) 50%, transparent 50%),
-    linear-gradient(0deg, var(--cf-blue) 50%, transparent 50%),
-    linear-gradient(0deg, var(--cf-blue) 50%, transparent 50%);
+  background: linear-gradient(90deg, var(--cf-blue) 50%, white 50%),
+    linear-gradient(90deg, var(--cf-blue) 50%, white 50%), linear-gradient(0deg, var(--cf-blue) 50%, white 50%),
+    linear-gradient(0deg, var(--cf-blue) 50%, white 50%);
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
   background-size: 14px 2px, 14px 2px, 2px 14px, 2px 14px;
   background-position: 0px 0px, 100% 100%, 0px 100%, 100% 0px;

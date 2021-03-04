@@ -14,7 +14,6 @@
   let theme = localStorage.getItem("theme") || "pastel-on-dark";
   let mode = localStorage.getItem("mode") || "python";
   let source = localStorage.getItem(`source/${contestId}/${index}/${mode}`);
-  let busy = 0;
 
   onMount(async () => {
     const startMs = performance.now();
@@ -92,7 +91,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            language: "python",
+            language: mode,
             source: editor.getValue(),
             stdin: test.input,
           }),
@@ -106,6 +105,7 @@
     }
   }
 
+  let busy = 0;
   function diffBusy(diff) {
     busy += diff;
     header.classList.remove("busy");
