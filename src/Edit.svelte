@@ -87,20 +87,25 @@
     for (const block of blocks) {
       if (block.class != "sample-tests") continue;
       for (const test of block.tests) {
-        const response = await fetch("https://emkc.org/api/v1/piston/execute", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            language: mode,
-            source: editor.getValue(),
-            stdin: test.input,
-          }),
-        });
-        const json = await response.json();
-        test.stdout = json.stdout;
-        test.stderr = json.stderr;
-        if (test.stdout == test.output) test.stdout = "the same :) # " + new Date().toJSON();
-        blocks = blocks;
+        try {
+          diffBusy(+1);
+          const response = await fetch("https://emkc.org/api/v1/piston/execute", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              language: mode,
+              source: editor.getValue(),
+              stdin: test.input,
+            }),
+          });
+          const json = await response.json();
+          test.stdout = json.stdout;
+          test.stderr = json.stderr;
+          if (test.stdout == test.output) test.stdout = "the same :) # " + new Date().toJSON();
+          blocks = blocks;
+        } finally {
+          diffBusy(-1);
+        }
       }
     }
   }
