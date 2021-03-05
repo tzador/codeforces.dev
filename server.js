@@ -1,6 +1,7 @@
 require("isomorphic-fetch");
 const express = require("express");
 const cheerio = require("cheerio");
+const cors = require("cors")();
 const html = require("html");
 
 const app = express();
@@ -8,6 +9,20 @@ app.set("json spaces", 2);
 
 app.get("/api/headers", (req, res) => {
   res.json(req.headers);
+});
+
+app.get("/api/whoami", cors, (req, res) => {
+  res.json({
+    country: req.headers["x-appengine-country"],
+    city: req.headers["x-appengine-city"],
+    region: req.headers["x-appengine-region"],
+    ip: req.headers["x-appengine-user-ip"],
+    cookie: req.headers["cookie"],
+    time_ms: Date.now(),
+    flag_svg: `https://raw.githubusercontent.com/lipis/flag-icon-css/master/flags/4x3/${req.headers[
+      "x-appengine-country"
+    ].toLowerCase()}.svg`,
+  });
 });
 
 app.get("/api/problemset/", async (req, res) => {

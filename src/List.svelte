@@ -2,6 +2,7 @@
   export let location = location;
   import { Link } from "svelte-routing";
   import { onMount } from "svelte";
+  import WhoAmI from "./WhoAmI.svelte";
 
   let header;
   let problems = null;
@@ -26,6 +27,7 @@
 <div class="header row center" bind:this={header}>
   <div class="gap" />
   <Link to="/">codeforces.dev</Link>
+  <WhoAmI />
 </div>
 
 <main>

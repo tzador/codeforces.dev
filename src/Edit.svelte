@@ -3,9 +3,10 @@
   export let contestId = contestId;
   export let index = index;
 
+  import WhoAmI from "./WhoAmI.svelte";
   import { Link } from "svelte-routing";
-  import { onMount } from "svelte";
   import { themes } from "./themes.js";
+  import { onMount } from "svelte";
 
   let header;
   let textarea;
@@ -121,6 +122,7 @@
 <div class="header row center" bind:this={header}>
   <div class="gap" />
   <Link to="/">codeforces.dev</Link>
+  <WhoAmI />
   <div class="grow" />
   <!-- svelte-ignore a11y-no-onchange -->
   <select bind:value={theme} on:change={changeTheme}>
