@@ -4,6 +4,7 @@ body {
   --cf-blue: #4d87c7;
   --cf-yellow: yellow;
   --cf-red: red;
+  --cf-green: green;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   margin: 0;
@@ -88,4 +89,12 @@ select {
   100% {
     background-position: 0 0, 100% 100%, 0 100%, 100% 0;
   }
+}
+
+pre.correct {
+  color: var(--cf-green);
+}
+pre.incorrect,
+pre.stderr {
+  color: var(--cf-red);
 }

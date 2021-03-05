@@ -112,7 +112,17 @@
           test.busy = false;
           test.stdout = json.stdout;
           test.stderr = json.stderr;
-          if (test.stdout == test.output) test.stdout = "the same :) # " + new Date().toJSON();
+          test.output = test.output
+            .trim()
+            .split("\n")
+            .map((line) => line.trim())
+            .join("\n");
+          test.stdout = test.stdout
+            .trim()
+            .split("\n")
+            .map((line) => line.trim())
+            .join("\n");
+          test.correct = test.stdout == test.output ? "correct" : "incorrect";
           blocks = blocks;
         } finally {
           diffBusy(-1);
@@ -153,6 +163,15 @@
   <div class="gap" />
   <button on:click={run}>Run</button>
   <div class="gap" />
+  <a href="http://bit.ly/2O5e8uP" target="_github">github</a>
+  <div class="gap" />
+  <a
+    href={location.href
+      .replace("codeforces.dev", "codeforces.com")
+      .replace("http://localhost:8080", "https://codeforces.com")}
+    target="_codeforces">codeforces.com</a
+  >
+  <div class="gap" />
 </div>
 
 <div class="left" bind:this={leftDiv}>
@@ -169,10 +188,10 @@
             <pre class={test.busy ? "busy" : ""}>{test.output}</pre>
             <div class="gap" />
             <div>stdout:</div>
-            <pre class={test.busy ? "busy" : ""}>{test.stdout}</pre>
+            <pre class={test.busy ? "busy " + test.correct : test.correct}>{test.stdout}</pre>
             <div class="gap" />
             <div>stderr:</div>
-            <pre class={test.busy ? "busy" : ""}>{test.stderr}</pre>
+            <pre class={test.busy ? "busy stderr" : "stderr"}>{test.stderr||""}</pre>
             <div class="gap" />
             {test.busy}
           </div>
