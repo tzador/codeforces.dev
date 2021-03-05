@@ -35,12 +35,7 @@
   <div class="grow" />
   <a href="http://bit.ly/2O5e8uP" target="_github">github</a>
   <div class="gap" />
-  <a
-    href={location.href
-      .replace("codeforces.dev", "codeforces.com")
-      .replace("http://localhost:8080", "https://codeforces.com")}
-    target="_codeforces">codeforces.com</a
-  >
+  <a href="http://bit.ly/3ejeSXU" target="_codeforces">codeforces.com</a>
   <div class="gap" />
 </div>
 
