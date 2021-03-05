@@ -1,12 +1,14 @@
 <script>
   export let location = location;
+  import Favicon from "./Favicon.svelte";
   import { Link } from "svelte-routing";
-  import { onMount } from "svelte";
   import WhoAmI from "./WhoAmI.svelte";
+  import { onMount } from "svelte";
 
   let header;
   let problems = null;
   onMount(async () => {
+    analytics.logEvent("list");
     try {
       diffBusy(+1);
       const response = await fetch("/api/problemset");
@@ -25,6 +27,8 @@
 </script>
 
 <div class="header row center" bind:this={header}>
+  <div class="gap" />
+  <Favicon />
   <div class="gap" />
   <Link to="/">codeforces.dev</Link>
   <WhoAmI />

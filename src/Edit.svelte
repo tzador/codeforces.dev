@@ -3,12 +3,14 @@
   export let contestId = contestId;
   export let index = index;
 
+  import Favicon from "./Favicon.svelte";
   import WhoAmI from "./WhoAmI.svelte";
   import { Link } from "svelte-routing";
   import { themes } from "./themes.js";
   import { onMount } from "svelte";
 
   let header;
+  let leftDiv;
   let textarea;
   let editor;
   let blocks = null;
@@ -17,6 +19,7 @@
   let source = localStorage.getItem(`source/${contestId}/${index}/${mode}`);
 
   onMount(async () => {
+    analytics.logEvent("problem");
     const startMs = performance.now();
     try {
       diffBusy(+1);
@@ -67,6 +70,7 @@
   });
 
   async function cheat() {
+    analytics.logEvent("cheat");
     const startMs = performance.now();
     try {
       diffBusy(+1);
@@ -84,12 +88,17 @@
   }
 
   async function run() {
+    analytics.logEvent("prerun");
     if (!source || !blocks) return;
+    analytics.logEvent("run");
+    leftDiv.scrollTo(0, Number.MAX_SAFE_INTEGER);
     for (const block of blocks) {
       if (block.class != "sample-tests") continue;
       for (const test of block.tests) {
         try {
           diffBusy(+1);
+          test.busy = true;
+          blocks = blocks;
           const response = await fetch("https://emkc.org/api/v1/piston/execute", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -100,6 +109,7 @@
             }),
           });
           const json = await response.json();
+          test.busy = false;
           test.stdout = json.stdout;
           test.stderr = json.stderr;
           if (test.stdout == test.output) test.stdout = "the same :) # " + new Date().toJSON();
@@ -120,6 +130,8 @@
 </script>
 
 <div class="header row center" bind:this={header}>
+  <div class="gap" />
+  <Favicon />
   <div class="gap" />
   <Link to="/">codeforces.dev</Link>
   <WhoAmI />
@@ -143,7 +155,7 @@
   <div class="gap" />
 </div>
 
-<div class="left">
+<div class="left" bind:this={leftDiv}>
   {#if blocks}
     {#each blocks as block}
       {#if block.class == "sample-tests"}
@@ -151,17 +163,18 @@
           <hr />
           <div class="test">
             <div>input:</div>
-            <pre>{test.input}</pre>
+            <pre class={test.busy ? "busy" : ""}>{test.input}</pre>
             <div class="gap" />
             <div>output:</div>
-            <pre>{test.output}</pre>
+            <pre class={test.busy ? "busy" : ""}>{test.output}</pre>
             <div class="gap" />
             <div>stdout:</div>
-            <pre>{test.stdout}</pre>
+            <pre class={test.busy ? "busy" : ""}>{test.stdout}</pre>
             <div class="gap" />
             <div>stderr:</div>
-            <pre>{test.stderr}</pre>
+            <pre class={test.busy ? "busy" : ""}>{test.stderr}</pre>
             <div class="gap" />
+            {test.busy}
           </div>
         {/each}
         <hr />
